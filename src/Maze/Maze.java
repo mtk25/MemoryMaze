@@ -11,7 +11,7 @@ public class Maze {
 
 	public Maze(){
 		JFrame f = new JFrame();
-		f.setTitle("Maze Game");
+		f.setTitle("Maze Memory Game");
 		f.add(new Board());
 		f.setSize(464, 485);
 		f.setLocationRelativeTo(null);

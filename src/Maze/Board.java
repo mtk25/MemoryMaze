@@ -9,17 +9,17 @@ public class Board extends JPanel implements ActionListener{
 
 		private Timer timer;
 		
-		private Player p;		
-		private Map m;
+		private Player player;		
+		private Map map;
 		private boolean win = false;
 		private String Message = "";
 		private Font font = new Font("Serif",Font.BOLD,48);
 		
 	  	public Board(){
-	  		m = new Map();
-	  		p= new Player();
+	  		map = new Map();
+	  		player= new Player();
 	  		
-	  		addKeyListener(new Al());
+	  		addKeyListener(new Moves());
 	  		// fire keyboard events
 	  		setFocusable(true);
 	  		
@@ -27,8 +27,8 @@ public class Board extends JPanel implements ActionListener{
 	  		timer.start();
 	  	}
 	    public void actionPerformed(ActionEvent e){
-	    	if(m.getMap(p.getTileX(),p.getTileY()).equals("f")){
-	    		Message = "Winner!";
+	    	if(map.getMap(player.getTileX(),player.getTileY()).equals("f")){
+	    		Message = "WIN!";
 	    		win = true;
 	    		
 	    	}
@@ -44,22 +44,22 @@ public class Board extends JPanel implements ActionListener{
 		    	{
 		    		for(int x = 0; x<14; x++)
 		    		{
-		    			if(m.getMap(x, y).equals("f")){
-		    				g.drawImage(m.getFinish(),x*32,y*32,null);
+		    			if(map.getMap(x, y).equals("f")){
+		    				g.drawImage(map.getFinish(),x*32,y*32,null);
 		    			}
-		    			if(m.getMap(x, y).equals("g")){
-		    				g.drawImage(m.getGrass(),x*32,y*32,null);
+		    			if(map.getMap(x, y).equals("g")){
+		    				g.drawImage(map.getGrass(),x*32,y*32,null);
 		    			}
-		    			if(m.getMap(x, y).equals("w")){
-		    				g.drawImage(m.getWall(),x*32,y*32,null);
+		    			if(map.getMap(x, y).equals("w")){
+		    				g.drawImage(map.getWall(),x*32,y*32,null);
 		    			}
-		    			if(m.getMap(x, y).equals("p")){
-		    				g.drawImage(m.getPath(),x*32,y*32,null);
+		    			if(map.getMap(x, y).equals("p")){
+		    				g.drawImage(map.getPath(),x*32,y*32,null);
 		    			}
 		    		}
 	    		
 	    		}
-		    	g.drawImage(p.getPlayer(),p.getTileX()*32,p.getTileY()*32,null);
+		    	g.drawImage(player.getPlayer(),player.getTileX()*32,player.getTileY()*32,null);
 		    	
 	    	}
 	    	if(win)
@@ -74,34 +74,34 @@ public class Board extends JPanel implements ActionListener{
 	   
 	   //public class moveCharacter extends Action 
 	    
-	   public class Al extends KeyAdapter
+	   public class Moves extends KeyAdapter
 	   {
 	 
 		   public void keyPressed(KeyEvent e){
 			   int keycode = e.getKeyCode();
 			   
 			   //move up
-			   if(keycode == KeyEvent.VK_W){
+			   if(keycode == KeyEvent.VK_UP){
 				   //check for collisions
-				   if(!m.getMap(p.getTileX(), p.getTileY()-1).equals("w")){
-					    p.move(0, -1);
+				   if(!map.getMap(player.getTileX(), player.getTileY()-1).equals("w")){
+					    player.move(0, -1);
 				   }				  
 			   }
 			   //move down
-				if(keycode == KeyEvent.VK_S){
-					if(!m.getMap(p.getTileX(), p.getTileY()+1).equals("w")){
-						p.move(0, 1);
+				if(keycode == KeyEvent.VK_DOWN){
+					if(!map.getMap(player.getTileX(), player.getTileY()+1).equals("w")){
+						player.move(0, 1);
 					}					 
 				}
-				if(keycode == KeyEvent.VK_A){
-					if(!m.getMap(p.getTileX()-1, p.getTileY()).equals("w")){
-						 p.move(-1, 0);
+				if(keycode == KeyEvent.VK_LEFT){
+					if(!map.getMap(player.getTileX()-1, player.getTileY()).equals("w")){
+						 player.move(-1, 0);
 					}
 					
 				}
-				if(keycode == KeyEvent.VK_D){
-					if(!m.getMap(p.getTileX()+1, p.getTileY()).equals("w")){
-						 p.move(1, 0);
+				if(keycode == KeyEvent.VK_RIGHT){
+					if(!map.getMap(player.getTileX()+1, player.getTileY()).equals("w")){
+						 player.move(1, 0);
 					}				  
 				}
 		   }
